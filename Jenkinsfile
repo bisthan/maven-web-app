@@ -17,4 +17,8 @@ node{
         sh "${mavenCMD} sonar:sonar"
         }
     }
+
+    stage('upload artifact'){
+        nexusArtifactUploader artifacts: [[artifactId: '01-maven-web-app', classifier: '', file: 'target/01-maven-web-app.war', type: 'war']], credentialsId: 'nexus', groupId: 'in.ashokit', nexusUrl: '35.85.33.71:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'ashokit-snapshot-repository', version: '1.0-SNAPSHOT'
+    }
 }
