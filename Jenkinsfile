@@ -9,4 +9,12 @@ node{
        def mavenCMD = "${mavenHome}/bin/mvn"
        sh "${mavenCMD} clean package"
     }
+
+    stage('code quality scan'){
+        withSonarQubeEnv(credentialsId: 'sonar') {
+        def mavenHome = tool name: "maven_3.8.6", type:"maven"
+        def mavenCMD = "${mavenHome}/bin/mvn"
+        sh "${mavenCMD} sonar:sonar"
+        }
+    }
 }
